@@ -11,8 +11,8 @@ def create_assets(p):
     """
     today = datetime.now().date()
     assets = []
-    for _ in range(p):
-        asset_id = len(assets) + 1
+    for i in range(p):
+        asset_id = i+1
         purchase_date = today - timedelta(days=random.randint(420, 750))
         assets.append(
             {"id": asset_id, "purchase_date": purchase_date.strftime("%Y-%m-%d")}
@@ -24,14 +24,17 @@ def create_rentals(assets, q):
     """
     create rent for above assets
     """
-    rentals = []
-    for asset in assets:
+    rentals = []    
+    i=0
+    while len(rentals)<=q:
+        i+=1
+        asset=random.choice(assets)
         asset_id = asset["id"]
         purchase_date = datetime.strptime(asset["purchase_date"], "%Y-%m-%d").date()
-        for _ in range(q):
-            rental_id = len(rentals) + 1
-            start_date = purchase_date + timedelta(days=random.randint(1, 365))
-            end_date = start_date + timedelta(days=random.randint(1, 30))
+        rental_id = 101 + i
+        start_date = purchase_date + timedelta(days=random.randint(1, 365))
+        end_date = start_date + timedelta(days=random.randint(1, 30))
+        if start_date>=purchase_date and end_date>=start_date:
             rentals.append(
                 {
                     "id": rental_id,
@@ -45,7 +48,7 @@ def create_rentals(assets, q):
 
 if __name__ == "__main__":
     all_assets = create_assets(5)
-    all_rentals = create_rentals(all_assets, 3)
+    all_rentals = create_rentals(all_assets, 10)
 
     print("Assets:")
     print(all_assets)
