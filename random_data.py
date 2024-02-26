@@ -13,7 +13,7 @@ def create_assets(p):
     assets = []
     for _ in range(p):
         asset_id = len(assets) + 1
-        purchase_date = today - timedelta(days=random.randint(1, 365))
+        purchase_date = today - timedelta(days=random.randint(420, 750))
         assets.append(
             {"id": asset_id, "purchase_date": purchase_date.strftime("%Y-%m-%d")}
         )
